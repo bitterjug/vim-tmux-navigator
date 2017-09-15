@@ -106,6 +106,26 @@ inoremap <silent> <c-h> <c-o>:TmuxNavigateLeft<cr>
 inoremap <silent> <c-j> <c-o>:TmuxNavigateDown<cr>
 inoremap <silent> <c-k> <c-o>:TmuxNavigateUp<cr>
 inoremap <silent> <c-l> <c-o>:TmuxNavigateRight<cr>
+
+if exists(':NERDTree')
+  call NERDTreeAddKeyMap({
+    \ 'key': '<c-j>',
+    \ 'callback': 'TmuxNerdTreeDown',
+    \ 'override': 1 })
+  call NERDTreeAddKeyMap({
+    \ 'key': '<c-k>',
+    \ 'callback': 'TmuxNerdTreeUp',
+    \ 'override': 1 })
+endif
+
+function! TmuxNerdTreeDown()
+  call <SID>TmuxWinCmd('j')
+endfunction
+
+function! TmuxNerdTreeUp()
+  call <SID>TmuxWinCmd('k')
+endfunction
+
 if s:UseTmuxNavigatorMappings()
   nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
   nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
